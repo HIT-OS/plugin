@@ -100,6 +100,7 @@ except Exception as e:
     print("Error:", str(e))
 ```
 ### 3. Thực hiện thêm component mới
+- Nhấn vào **New Custom Component** để thêm vào hệ thống một component mới, thực hiện đẩy code lên vào tạo ra component.
 ![image](/docs/images/image.png)
 ---
 
