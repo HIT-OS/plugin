@@ -28,7 +28,7 @@
 [![Getting Started](https://github.com/user-attachments/assets/f1adfbe7-3c35-43a4-b265-661f3d4f875f)](https://www.youtube.com/watch?v=kinngWhaUKM)
 
 
-## Hướng Dẫn Sử Dụng Hai Component: Wikipedia API và Speech to Text
+## Hướng Dẫn Sử Dụng Component: Wikipedia API và Speech to Text
 
 ### 1. **Wikipedia API Component**
 
