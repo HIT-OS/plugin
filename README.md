@@ -28,6 +28,100 @@
 [![Getting Started](https://github.com/user-attachments/assets/f1adfbe7-3c35-43a4-b265-661f3d4f875f)](https://www.youtube.com/watch?v=kinngWhaUKM)
 
 
+## Hướng Dẫn Sử Dụng Hai Component: Wikipedia API và Speech to Text
+
+### 1. **Wikipedia API Component**
+
+#### Chức năng:
+Component này gọi API của Wikipedia để truy vấn thông tin dựa trên từ khóa đầu vào, trả về danh sách tài liệu (text).
+
+#### Các bước thực hiện:
+
+1. **Cấu hình các tham số đầu vào**:
+   - `input_value`: Nhập từ khóa tìm kiếm (ví dụ: "Python programming").
+   - `lang`: Chọn ngôn ngữ của kết quả tìm kiếm (mặc định là "en").
+   - `k`: Số lượng kết quả tối đa trả về (mặc định là 4).
+   - `load_all_available_meta`: Chọn `True` nếu muốn tải toàn bộ metadata liên quan (tùy chọn nâng cao).
+   - `doc_content_chars_max`: Giới hạn số ký tự của nội dung tài liệu (mặc định là 4000, tùy chọn nâng cao).
+
+2. **Chạy Component**:
+   - Gọi hàm `run_model()` để thực thi việc truy vấn và nhận danh sách kết quả.
+   - Kết quả trả về là danh sách tài liệu được nối chuỗi thành một đoạn văn bản.
+
+3. **Tích hợp làm công cụ**:
+   - Sử dụng hàm `build_tool()` để xây dựng một công cụ (`Tool`) dựa trên Wrapper của Wikipedia.
+
+#### Ví dụ mã lệnh:
+```python
+component = WikipediaAPIComponent()
+component.input_value = "Artificial Intelligence"
+component.lang = "en"
+component.k = 5
+component.doc_content_chars_max = 5000
+
+# Chạy và lấy kết quả
+results = component.run_model()
+print("Wikipedia Results:\n", results)
+```
+
+---
+
+### 2. **Speech to Text Component**
+
+#### Chức năng:
+Component này chuyển đổi giọng nói từ microphone thành văn bản, đồng thời lưu văn bản vào một tệp tin trên hệ thống.
+
+#### Các bước thực hiện:
+
+1. **Cấu hình tham số đầu vào**:
+   - `save_path`: Đường dẫn nơi lưu trữ kết quả nhận dạng (mặc định là `~/.cache/langflow/speech_output.txt`).
+
+2. **Chạy Component**:
+   - Sử dụng hàm `build_output()` để bắt đầu nhận giọng nói và chuyển đổi sang văn bản.
+   - Component sẽ mở microphone, lắng nghe giọng nói, nhận dạng nội dung, và lưu vào tệp tin.
+
+3. **Xử lý lỗi**:
+   - Nếu không nhận diện được giọng nói hoặc xảy ra lỗi, thông báo lỗi sẽ được ném ra.
+
+4. **Kiểm tra kết quả**:
+   - Văn bản nhận dạng được lưu ở `save_path`.
+   - Trạng thái của Component (`self.status`) chứa văn bản nhận dạng.
+
+#### Ví dụ mã lệnh:
+```python
+component = SpeechToTextComponent()
+component.input_value = "/path/to/output.txt"
+
+# Bắt đầu nhận giọng nói
+try:
+    result = component.build_output()
+    print("Recognized Speech:", result.value)
+except Exception as e:
+    print("Error:", str(e))
+```
+
+---
+
+### Gợi Ý Cấu Hình Môi Trường
+
+#### Các thư viện cần thiết:
+- Cài đặt các thư viện cần thiết qua pip:
+```bash
+pip install langchain langflow speechrecognition platformdirs
+```
+
+#### Yêu cầu phần cứng:
+- **Wikipedia API**: Chỉ cần kết nối mạng.
+- **Speech to Text**: Cần một microphone hoạt động tốt.
+
+#### Lưu ý:
+- Đảm bảo microphone đã được cấp quyền truy cập nếu chạy trên hệ điều hành yêu cầu quyền (ví dụ: macOS, Windows).
+- Wikipedia API có thể giới hạn số lần gọi trong một thời gian nhất định.
+
+--- 
+
+Bạn có thể kết hợp hai component này để xây dựng một ứng dụng hỗ trợ tìm kiếm thông tin hoặc ghi nhận các câu hỏi được nói trực tiếp từ người dùng.
+
 #### **📬 Liên Hệ và Góp Ý**
 
 Nếu bạn có bất kỳ câu hỏi nào hoặc muốn đóng góp cho dự án, bạn có thể liên hệ qua email hoặc GitHub Issues:
