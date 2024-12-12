@@ -100,7 +100,7 @@ except Exception as e:
     print("Error:", str(e))
 ```
 ### 3. Thực hiện thêm component mới
-![image](/docs/images/image.pngpng)
+![image](/docs/images/image.png)
 ---
 
 ### Gợi Ý Cấu Hình Môi Trường
